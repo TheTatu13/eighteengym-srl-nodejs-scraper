@@ -186,7 +186,7 @@ async function main() {
         website: ["https://18gym.ro"],
         career: ["https://18gym.ro/cariere/"],
         lastScraped: new Date().toISOString().split("T")[0],
-        scraperFile: "https://raw.githubusercontent.com/AlexColceriu/eighteengym-srl-nodejs-scraper/main/.github/workflows/scrape.yml"
+        scraperFile: "https://raw.githubusercontent.com/peviitor-scrapers/eighteengym-srl-nodejs-scraper/main/.github/workflows/scrape.yml"
       };
       await upsertCompany(companyDoc);
     } else {

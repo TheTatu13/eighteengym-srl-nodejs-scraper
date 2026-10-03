@@ -28,8 +28,6 @@ jobs:
 
       - name: Run scraper
         run: npm run scrape
-        env:
-          SOLR_AUTH: ${{ secrets.SOLR_AUTH }}
 
       - name: Upload jobs.json as artifact
         uses: actions/upload-artifact@v4

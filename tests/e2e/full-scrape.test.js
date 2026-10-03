@@ -1,6 +1,6 @@
 /**
  * E2E test for full scraper workflow (test mode)
- * Requires SOLR_AUTH environment variable
+ * Test mode: no API writes (uses the public api.peviitor.ro layer; no credential needed)
  */
 
 describe("Full scraper E2E", () => {

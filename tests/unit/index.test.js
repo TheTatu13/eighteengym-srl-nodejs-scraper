@@ -30,7 +30,7 @@ describe("mapToJobModel", () => {
     expect(result.company).toBe("EIGHTEENGYM SRL");
     expect(result.cif).toBe("9829933");
     expect(result.location).toContain("Cluj Napoca");
-    expect(result.status).toBe("scraped");
+    expect(result.status).toBe("activ");
     expect(result.date).toBeDefined();
   });
 });

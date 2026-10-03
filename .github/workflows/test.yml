@@ -30,5 +30,3 @@ jobs:
 
       - name: Run tests
         run: npm test
-        env:
-          SOLR_AUTH: ${{ secrets.SOLR_AUTH }}
