@@ -8,3 +8,5 @@ jobs_existing.json
 dist/
 .coverage/
 test-report.html
+
+*.err
