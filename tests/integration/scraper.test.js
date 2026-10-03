@@ -12,8 +12,8 @@ describe("Scraper integration", () => {
   it("should fetch careers page successfully", async () => {
     const index = await import("../../index.js");
     const result = await index.fetchCareersPage();
-    expect(result.jobTypes).toContain("Club manager");
-    expect(result.jobTypes).toContain("Front desk - Recepție");
+    expect(result.jobTypes.length).toBeGreaterThan(0);
+    expect(result.jobTypes).toContain("Antrenor personal");
     expect(result.locations).toContain("Cluj Napoca");
     expect(result.locations).toContain("București");
   });

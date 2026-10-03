@@ -36,21 +36,22 @@ async function fetchCareersPage() {
   const html = await res.text();
   const $ = cheerio.load(html);
 
-  // Known job types based on the careers page form
-  const jobTypes = [
-    "Club manager",
-    "Front desk - Recepție",
-    "Antrenor personal",
-    "Personal curățenie"
-  ];
+  // Read the real options from the application form (position + location selects).
+  // Never fall back to hardcoded lists: they would keep publishing positions the site no longer offers.
+  const selects = $("form#Cariere select");
+  const optionsOf = (i) =>
+    selects
+      .eq(i)
+      .find("option")
+      .map((_, o) => ($(o).attr("value") || "").trim())
+      .get()
+      .filter(Boolean);
+  const jobTypes = optionsOf(0);
+  const locations = optionsOf(1);
 
-  // Known locations from the careers page
-  const locations = [
-    "Alba Iulia", "Arad", "Bacău", "Baia Mare", "Bistrița",
-    "Brașov", "București", "Cluj Napoca", "Câmpia Turzii",
-    "Constanța", "Iași", "Luduș", "Mediaș", "Piatra Neamț",
-    "Satu-Mare", "Sibiu", "Târgu Mureș", "Turda"
-  ];
+  if (jobTypes.length === 0 || locations.length === 0) {
+    throw new Error("Careers form not found on page (no position/location options) - page layout changed?");
+  }
 
   return { jobTypes, locations };
 }
@@ -69,7 +70,10 @@ async function fetchJobsFromBestjobs() {
       timeout: TIMEOUT
     });
 
-    if (!res.ok) return [];
+    if (!res.ok) {
+      await res.arrayBuffer().catch(() => {}); // drain the body so the socket is released
+      return [];
+    }
     const data = await res.json();
     return data.data || data.jobs || [];
   } catch (err) {
